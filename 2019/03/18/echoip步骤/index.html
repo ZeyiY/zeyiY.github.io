@@ -138,8 +138,7 @@
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
                     <h2 id="Contos-环境-Docker安装-echoip步骤"><a href="#Contos-环境-Docker安装-echoip步骤" class="headerlink" title="Contos 环境 Docker安装 echoip步骤"></a>Contos 环境 Docker安装 <strong>echoip</strong>步骤</h2><p>背景：因为最近的一些个人的想法，恰好需要使用根据Ip获取地理位置，在百度和Google中查询了很多种接口，要么收费，要么有次数限制，萌新囊中羞涩，故而使用<a href="https://github.com/mpolden/echoip" target="_blank" rel="noopener">https://github.com/mpolden/echoip</a> 这个服务了，并且使用了Docker 部署的方式进行使用。在部署过程中踩了很多坑，故进而记录，以防以后使用。</p>
-<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><p>####首先要安装docker环境，并运行起来。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><h4 id="首先要安装docker环境，并运行起来。"><a href="#首先要安装docker环境，并运行起来。" class="headerlink" title="首先要安装docker环境，并运行起来。"></a>首先要安装docker环境，并运行起来。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
 <p>Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 。</p>
 <p>安装一些必要的系统工具</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
@@ -208,7 +207,7 @@
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Contos-环境-Docker安装-echoip步骤"><span class="toc-text">Contos 环境 Docker安装 echoip步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#环境准备"><span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装git"><span class="toc-text">安装git</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-docker-ce"><span class="toc-text">Install docker-ce</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Contos-环境-Docker安装-echoip步骤"><span class="toc-text">Contos 环境 Docker安装 echoip步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#环境准备"><span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#首先要安装docker环境，并运行起来。"><span class="toc-text">首先要安装docker环境，并运行起来。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装git"><span class="toc-text">安装git</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-docker-ce"><span class="toc-text">Install docker-ce</span></a></li></ol></li></ol>
     </div>
 </div>
 
