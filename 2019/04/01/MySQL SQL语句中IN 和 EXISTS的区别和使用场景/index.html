@@ -17,7 +17,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>2019，重新开始 | 粽子的世界</title>
+	<title>粽子的世界 | 粽子的世界</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -45,14 +45,14 @@
 
 	<meta property="og:site_name" content="粽子的世界">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="2019，重新开始 | 粽子的世界">
+	<meta property="og:title" content="粽子的世界 | 粽子的世界">
 	<meta property="og:description" content>
-	<meta property="og:url" content="http://yoursite.com/2019/03/14/2019，重新开始/">
+	<meta property="og:url" content="http://yoursite.com/2019/04/01/MySQL SQL语句中IN 和 EXISTS的区别和使用场景/">
 
 	
-	<meta property="article:published_time" content="2019-03-14T22:03:00+08:00"> 
+	<meta property="article:published_time" content="2019-04-01T23:04:22+08:00"> 
 	<meta property="article:author" content="粽子">
-	<meta property="article:published_first" content="粽子的世界, /2019/03/14/2019，重新开始/">
+	<meta property="article:published_first" content="粽子的世界, /2019/04/01/MySQL SQL语句中IN 和 EXISTS的区别和使用场景/">
 	
 </head>
 <body class="post-template">
@@ -123,21 +123,85 @@
     <div class="inner">
         <header class="post-full-header">
             <section class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-03-14T14:15:50.000Z" itemprop="datePublished">
-                    2019-03-14
+                <time class="post-full-meta-date" datetime="2019-04-01T15:30:32.224Z" itemprop="datePublished">
+                    2019-04-1
                 </time>
                 
                 <span class="date-divider">/</span>
                 
                 
             </section>
-            <h1 class="post-full-title">2019，重新开始</h1>
+            <h1 class="post-full-title"></h1>
         </header>
         <article class="post-full no-image">
             
             <section class="post-full-content">
                 <div id="lightgallery" class="markdown-body">
-                    <h2 id="2019，重新开始"><a href="#2019，重新开始" class="headerlink" title="2019，重新开始"></a>2019，重新开始</h2><p>​    2019，北漂第四年，重新选择，重新开始。要做的事情很多，之前的想法要在这一年中一件一件的实现，首先就是创建一个自己的博客，虽然，有这个想法有好长时间，一直没有落地，终于在昨天把博客搭建起来了，算一个开始。</p>
+                    <p>##MySQL SQL语句中IN 和 EXISTS的区别和使用场景</p>
+<p>转载：<a href="https://blog.csdn.net/wqc19920906/article/details/79800374" target="_blank" rel="noopener">https://blog.csdn.net/wqc19920906/article/details/79800374</a></p>
+<h3 id="IN-语句：只执行一次"><a href="#IN-语句：只执行一次" class="headerlink" title="IN 语句：只执行一次"></a>IN 语句：只执行一次</h3><p>确定给定的值是否与子查询或列表中的值相匹配。</p>
+<p>in在查询的时候，首先查询子查询的表，然后将内表和外表做一个笛卡尔积，然后按照条件进行筛选。所以相对内表比较小的时候，in的速度较快。</p>
+<p>###EXISTS语句：执行外表结果.length次</p>
+<p>指定一个子查询，检测行的存在。遍历循环外表，然后看外表中的记录有没有和内表的数据一样的。匹配上就将结果放入结果集中。</p>
+<p>使用exists关键字进行查询的时候，首先，我们先查询的不是子查询的内容，而是查我们的主查询的表。</p>
+<p>然后，根据表的每一条记录，执行以下语句，依次去判断where后面的条件是否成立。</p>
+<p>如果成立则返回true不成立则返回false。如果返回的是true的话，则该行结果保留，如果返回的是false的话，则删除该行，最后将得到的结果返回。</p>
+<p>###区别及应用场景</p>
+<p>in 和 exists的区别: </p>
+<ol>
+<li>如果子查询得出的结果集记录较少，主查询中的表较大且又有索引时应该用in。</li>
+<li>反之如果外层的主查询记录较少，子查询中的表大，又有索引时使用exists。</li>
+<li>其实我们区分in和exists主要是造成了驱动顺序的改变(这是性能变化的关键)，如果是exists，那么以外层表为驱动表，先被访问，如果是IN，那么先执行子查询，所以我们会以驱动表的快速返回为目标，那么就会考虑到索引及结果集的关系了 。</li>
+<li>IN时不对NULL进行处理。</li>
+<li>in 是把外表和内表作hash 连接，而exists是对外表作loop循环，每次loop循环再对内表进行查询。</li>
+<li>一直以来认为exists比in效率高的说法是不准确的。</li>
+</ol>
+<p>###not in 和not exists</p>
+<p>​    如果查询语句使用了not in 那么内外表都进行全表扫描，没有用到索引；而not extsts 的子查询依然能用到表上的索引。所以无论那个表大，用not exists都比not in要快。</p>
+<h3 id="场景示例"><a href="#场景示例" class="headerlink" title="场景示例"></a>场景示例</h3><ol>
+<li>IN 查询示例</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from A</span><br><span class="line">where id in(select id from B)</span><br></pre></td></tr></table></figure>
+<p>查询过程类似于以下过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">List resultSet=[];</span><br><span class="line">Array A=(select * from A);</span><br><span class="line">Array B=(select id from B);</span><br><span class="line"></span><br><span class="line">for(int i=0;i&lt;A.length;i++) &#123;</span><br><span class="line">   for(int j=0;j&lt;B.length;j++) &#123;</span><br><span class="line">      if(A[i].id==B[j].id) &#123;</span><br><span class="line">         resultSet.add(A[i]);</span><br><span class="line">         break;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">return resultSet;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>exists 查询示例</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select a.* from A a </span><br><span class="line">where exists(select 1 from B b where a.id=b.id)</span><br></pre></td></tr></table></figure>
+<p>查询过程类似于以下过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List resultSet=[];</span><br><span class="line">Array A=(select * from A)</span><br><span class="line"></span><br><span class="line">for(int i=0;i&lt;A.length;i++) &#123;</span><br><span class="line">   if(exists(A[i].id) &#123;    //执行select 1 from B b where b.id=a.id是否有记录返回</span><br><span class="line">       resultSet.add(A[i]);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">return resultSet;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>exists 在子查询中使用 NULL 仍然返回结果集</li>
+</ol>
+<p>select <em> from TableIn where exists(select null)<br>等同于： select </em> from TableIn</p>
+<ol start="4">
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">users表有1000条记录，id自增，id都大于0</span><br><span class="line"></span><br><span class="line">select * from users where exists (select * from users limit 0); --输出1000条记录</span><br><span class="line"></span><br><span class="line">select * from users where exists (select * from users where id &lt; 0); --输出0条记录</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>exists查询的本质，只要碰到有记录，则返回true；所以limit根本就不会去管，或者说执行不到。</p>
+<ol start="5">
+<li>exists不可以完全代替in</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--没有关联字段的情况：枚举常量</span><br><span class="line">select * from areas where id in (4, 5, 6);</span><br><span class="line"></span><br><span class="line">--没有关联字段的情况：这样exists对子查询，要么全true，要么全false</span><br><span class="line">select * from areas where id in (select city_id from deals where deals.name = &apos;xxx&apos;);</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>exists 优化</li>
+</ol>
+<p>在许多基于基础表的查询中，为了满足一个条件，往往需要对另一个表进行联接。<br>在这种情况下，使用exists(或not exists)通常将提高查询的效率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（低效） </span><br><span class="line">select ... from table1 t1 where t1.id &gt; 10 and pno in (select no from table2 where name like &apos;www%&apos;); </span><br><span class="line">（高效） </span><br><span class="line">select ... from table1 t1 where t1.id &gt; 10 and exists (select 1 from table2 t2 where t1.pno = t2.no and name like &apos;www%&apos;);</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>用not exists替代not in</li>
+</ol>
+<p>在子查询中，not in子句将执行一个内部的排序和合并。<br>无论在哪种情况下，not in都是最低效的 (因为它对子查询中的表执行了一个全表遍历)。<br>为了避免使用not in，我们可以把它改写成外连接(Outer Joins)或not exists。 </p>
+<ol start="8">
+<li>用exists替换distinct</li>
+</ol>
+<p>当提交一个包含一对多表信息的查询时,避免在select子句中使用distinct. 一般可以考虑用exists替换 </p>
+<p>exists使查询更为迅速,因为RDBMS核心模块将在子查询的条件一旦满足后,立刻返回结果.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（低效） </span><br><span class="line">select distinct d.dept_no, d.dept_name from t_dept d, t_emp e where d.dept_no = e.dept_no; </span><br><span class="line">（高效） </span><br><span class="line">select d.dept_no, d.dept_name from t_dept d where exists (select 1 from t_emp where d.dept_no = e.dept_no);</span><br></pre></td></tr></table></figure>
+<ol start="9">
+<li>用表连接替换exists</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">（低效） </span><br><span class="line">select ename from emp e where exists (select 1 from dept where dept_no = e.dept_no and dept_cat = &apos;W&apos;); </span><br><span class="line">SELECT ENAME </span><br><span class="line">（高效） </span><br><span class="line">select ename from dept d, emp e where e.dept_no = d.dept_no and dept_cat = &apos;W&apos;;</span><br></pre></td></tr></table></figure>
 
                 </div>
             </section>
@@ -148,11 +212,11 @@
     <div style="height: 4vw;width: 100%"></div>
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="echoip步骤" href="/2019/03/18/echoip步骤/">
-            ← echoip步骤
-        </a>
-        
         <span class="prev-next-post">•</span>
+        
+        <a class="next-post" title="echoip步骤" href="/2019/03/18/echoip步骤/">
+            echoip步骤 →
+        </a>
         
     </nav>
 
@@ -173,7 +237,7 @@
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#2019，重新开始"><span class="toc-text">2019，重新开始</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#IN-语句：只执行一次"><span class="toc-text">IN 语句：只执行一次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#场景示例"><span class="toc-text">场景示例</span></a></li></ol>
     </div>
 </div>
 
@@ -302,7 +366,7 @@
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">2019，重新开始</div>
+    <div class="floating-header-title"></div>
     <progress class="progress" value="0">
         <div class="progress-container">
             <span class="progress-bar"></span>
