@@ -145,8 +145,7 @@
 <p>使用exists关键字进行查询的时候，首先，我们先查询的不是子查询的内容，而是查我们的主查询的表。</p>
 <p>然后，根据表的每一条记录，执行以下语句，依次去判断where后面的条件是否成立。</p>
 <p>如果成立则返回true不成立则返回false。如果返回的是true的话，则该行结果保留，如果返回的是false的话，则删除该行，最后将得到的结果返回。</p>
-<p>###区别及应用场景</p>
-<p>in 和 exists的区别: </p>
+<h3 id="区别及应用场景"><a href="#区别及应用场景" class="headerlink" title="区别及应用场景"></a>区别及应用场景</h3><p>in 和 exists的区别: </p>
 <ol>
 <li>如果子查询得出的结果集记录较少，主查询中的表较大且又有索引时应该用in。</li>
 <li>反之如果外层的主查询记录较少，子查询中的表大，又有索引时使用exists。</li>
@@ -155,8 +154,7 @@
 <li>in 是把外表和内表作hash 连接，而exists是对外表作loop循环，每次loop循环再对内表进行查询。</li>
 <li>一直以来认为exists比in效率高的说法是不准确的。</li>
 </ol>
-<p>###not in 和not exists</p>
-<p>​    如果查询语句使用了not in 那么内外表都进行全表扫描，没有用到索引；而not extsts 的子查询依然能用到表上的索引。所以无论那个表大，用not exists都比not in要快。</p>
+<h3 id="not-in-和not-exists"><a href="#not-in-和not-exists" class="headerlink" title="not in 和not exists"></a>not in 和not exists</h3><p>​    如果查询语句使用了not in 那么内外表都进行全表扫描，没有用到索引；而not extsts 的子查询依然能用到表上的索引。所以无论那个表大，用not exists都比not in要快。</p>
 <h3 id="场景示例"><a href="#场景示例" class="headerlink" title="场景示例"></a>场景示例</h3><ol>
 <li>IN 查询示例</li>
 </ol>
@@ -236,7 +234,7 @@
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-SQL语句中IN-和-EXISTS的区别和使用场景"><span class="toc-text">MySQL SQL语句中IN 和 EXISTS的区别和使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IN-语句：只执行一次"><span class="toc-text">IN 语句：只执行一次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#场景示例"><span class="toc-text">场景示例</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-SQL语句中IN-和-EXISTS的区别和使用场景"><span class="toc-text">MySQL SQL语句中IN 和 EXISTS的区别和使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IN-语句：只执行一次"><span class="toc-text">IN 语句：只执行一次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#区别及应用场景"><span class="toc-text">区别及应用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#not-in-和not-exists"><span class="toc-text">not in 和not exists</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#场景示例"><span class="toc-text">场景示例</span></a></li></ol></li></ol>
     </div>
 </div>
 
