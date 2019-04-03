@@ -119,7 +119,7 @@
             <h1 class="site-title">
                 Archives
             </h1>
-            <h2 class="site-description">Total: 3</h2>
+            <h2 class="site-description">Total: 4</h2>
         </div>
         
         
@@ -130,6 +130,53 @@
 <main id="site-main" class="site-main outer" role="main">
 	<div class="inner">
 		<div class="post-feed">
+			
+			<article class="post-card post  no-image ">
+				
+				<div class="post-card-content">
+					<a class="post-card-content-link" title="Mysql的时间比较和DATE_FORMAT踩的坑" href="/2019/04/03/Mysql的时间比较和DATE-FORMAT踩的坑/">
+						<header class="post-card-header">
+							<span class="post-card-tags">
+								
+								| 
+								
+								<time datetime="2019-04-03T14:44:31.000Z" itemprop="datePublished">
+									2019-04-03
+								</time>
+							</span>
+							<h2 class="post-card-title">Mysql的时间比较和DATE_FORMAT踩的坑</h2>
+						</header>
+						<section class="post-card-excerpt">
+							<p>
+								
+								
+								
+								
+								
+								踩坑背景：   在一次先插入数据再进行查询的业务逻辑操作过程中，有一个字段数据库类型是datetime,插入操作是在java代码中new Date(),赋值到该数据库字段进行插入，而后同同一个date作为查询条件，代入sql进行查询，神奇的事情出现了，竟然查不到刚刚插入的数据。
+原因分析：在进行插入操作中，Mysql做了格式format，毫秒会进行处理，四舍五入的方式处理，最终存入数据库的数据毫秒位均是零，but 在进行查询的时候是不进行format的，会带有毫米位，所以绝大
+								...
+							</p>
+						</section>
+					</a>
+					<footer class="post-card-meta">
+						<div class="author-list">
+							<div class="author-list-item">
+								<div class="author-name-tooltip">粽子</div>
+								
+								<a href="/about" class="static-avatar">
+									<img class="author-profile-image" src="https://i.loli.net/2019/03/14/5c8a5c4108255.jpg" alt="粽子">
+								</a>
+								
+							</div>
+						</div>
+						<span class="reading-time">
+							2
+							min read
+						</span>
+					</footer>
+				</div>
+			</article>
 			
 			<article class="post-card post  no-image ">
 				
@@ -219,6 +266,12 @@ EXISTS语句：执行外表结果.length次指定一个子查询，检测行的�
       
       
       <li>
+        <a href="/2019/04/03/Mysql的时间比较和DATE-FORMAT踩的坑/">Mysql的时间比较和DATE_FORMAT踩的坑</a>
+      </li>
+      
+      
+      
+      <li>
         <a href="/2019/04/01/MySQL语句中IN和EXISTS的区别和使用场景/">MySQL语句中IN和EXISTS的区别和使用场景</a>
       </li>
       
@@ -229,10 +282,6 @@ EXISTS语句：执行外表结果.length次指定一个子查询，检测行的�
       </li>
       
       
-      
-      <li>
-        <a href="/2019/03/14/2019，重新开始/">2019，重新开始</a>
-      </li>
       
       
     </ul>
