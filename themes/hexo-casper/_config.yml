@@ -1,0 +1,83 @@
+# Config
+rss:            # link
+favicon: https://i.loli.net/2019/03/14/5c8a5bd9d19b4.jpg
+blog_logo: 
+header_image: https://i.loli.net/2019/03/14/5c8a6f200d7af.jpg
+bio:  写bug，一时爽，一直写bug，一直爽
+post_toc: true
+
+# Keywords
+keywords: 粽子
+
+# Menu
+menu:
+  ABOUT: /about/
+  ARCHIVES: /archives
+  # you can add here
+
+# author
+author_image: https://i.loli.net/2019/03/14/5c8a5c4108255.jpg
+author_bio: 粽子
+author_location: 写bug，一时爽，一直写bug，一直爽
+
+# Social Links
+social:
+  weibo: https://weibo.com/u/3005137521
+  github: https://github.com/zeyiY
+  twitter: 
+  facebook: 
+  telegram:
+  bilibili: 
+  youtube: 
+  # You only can use that I have added, I will keep adding
+
+# Footer Links
+footer_text: 
+  # title: link
+  # 粤ICP备xxxxxxx号-x: http://www.miitbeian.gov.cn
+  # 粤公网安备xxxxxxx号: http://www.beian.gov.cn
+
+# Widget
+widgets:
+  recent_posts: true
+  category: true
+  tagcloud: true
+  # This is a simple theme, I think 3 is enough.
+
+# Gallery
+# https://github.com/sachinchoolur/lightgallery.js
+lightgallery: true
+
+# LazyLoad
+# home page has enabled, this value is to post page
+# https://github.com/dinbror/blazy
+lazyload: true
+
+# Local Search
+local_search: true
+
+# Comment
+# https://valine.js.org
+comment: false
+valine:
+  notify: false # mail notifier , https://github.com/xCss/Valine/wiki 
+  verify: false # Verification code
+  appId: # your leancloud application appid
+  appKey: # your leancloud application appkey
+  placeholder: Just go go # comment box placeholder
+  pageSize: 10 # pagination size
+  avatar: mm # gravatar style
+
+# PWA
+# you need create a manifest.json file in hexo's source folder
+manifest: false
+service_workers: false
+
+navColor: '3c484e'
+
+# Baidu Push
+baidu: false
+
+# Google Analytics
+googleAnalytics: false
+GA_TRACKING_ID: UA-XXXXXXXXXX-1
