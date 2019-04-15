@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang>
+
+
+
+
+
+
+
+<head>
+	
+	
+	<link rel="stylesheet" href="/css/allinone.min.css">
+
+	
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖 | 粽子的世界</title>
+
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+	<meta name="generator" content="hexo">
+	<meta name="author" content="粽子">
+	<meta name="description" content>
+
+	
+	<meta name="keywords" content>
+	
+
+	
+	<link rel="shortcut icon" href="https://i.loli.net/2019/03/14/5c8a5bd9d19b4.jpg">
+	<link rel="apple-touch-icon" href="https://i.loli.net/2019/03/14/5c8a5bd9d19b4.jpg">
+	
+
+	
+	<meta name="theme-color" content="#3c484e">
+	<meta name="msapplication-TileColor" content="#3c484e">
+	
+
+	
+
+	
+
+	<meta property="og:site_name" content="粽子的世界">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖 | 粽子的世界">
+	<meta property="og:description" content>
+	<meta property="og:url" content="http://yoursite.com/2019/04/13/这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖/">
+
+	
+	<meta property="article:published_time" content="2019-04-13T19:04:00+08:00"> 
+	<meta property="article:author" content="粽子">
+	<meta property="article:published_first" content="粽子的世界, /2019/04/13/这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖/">
+	
+</head>
+<body class="post-template">
+	<div class="site-wrapper">
+		
+
+
+
+
+<header class="site-header outer" style="z-index: 999">
+    <div class="inner">
+        
+<nav class="site-nav"> 
+    <div class="site-nav-left">
+        <ul class="nav">
+            <li>
+                
+                <a href="/" title="Home">HOME</a>
+                
+            </li>
+            
+            
+            <li>
+                <a href="/about/" title="ABOUT">ABOUT</a>
+            </li>
+            
+            <li>
+                <a href="/archives" title="ARCHIVES">ARCHIVES</a>
+            </li>
+            
+            
+        </ul> 
+    </div>
+    
+    <div class="search-button">
+        <a href="#search" class="subscribe-button" style="margin: 0 10px;">Search ...</a>
+    </div>
+     
+    <div class="site-nav-right">
+        
+        <a href="#search" class="subscribe-button" style="margin: 0 10px;">Search ...</a>
+         
+        
+<div class="social-links">
+    
+    <a class="social-link" title="weibo" href="https://weibo.com/u/3005137521" target="_blank" rel="noopener">
+        <svg viewbox="0 0 1141 1024" xmlns="http://www.w3.org/2000/svg"><path d="M916.48 518.144q27.648 21.504 38.912 51.712t9.216 62.976-14.336 65.536-31.744 59.392q-34.816 48.128-78.848 81.92t-91.136 56.32-94.72 35.328-89.6 18.944-75.264 7.68-51.712 1.536-49.152-2.56-68.096-10.24-78.336-21.504-79.872-36.352-74.24-55.296-59.904-78.848q-16.384-29.696-22.016-63.488t-5.632-86.016q0-22.528 7.68-51.2t27.136-63.488 53.248-75.776 86.016-90.112q51.2-48.128 105.984-85.504t117.248-57.856q28.672-10.24 63.488-11.264t57.344 11.264q10.24 11.264 19.456 23.04t12.288 29.184q3.072 14.336 0.512 27.648t-5.632 26.624-5.12 25.6 2.048 22.528q17.408 2.048 33.792-1.536t31.744-9.216 31.232-11.776 33.28-9.216q27.648-5.12 54.784-4.608t49.152 7.68 36.352 22.016 17.408 38.4q2.048 14.336-2.048 26.624t-8.704 23.04-7.168 22.016 1.536 23.552q3.072 7.168 14.848 13.312t27.136 12.288 32.256 13.312 29.184 16.384zM658.432 836.608q26.624-16.384 53.76-45.056t44.032-64 18.944-75.776-20.48-81.408q-19.456-33.792-47.616-57.344t-62.976-37.376-74.24-19.968-80.384-6.144q-78.848 0-139.776 16.384t-105.472 43.008-72.192 60.416-38.912 68.608q-11.264 33.792-6.656 67.072t20.992 62.976 42.496 53.248 57.856 37.888q58.368 25.6 119.296 32.256t116.224 0.512 100.864-21.504 74.24-33.792zM524.288 513.024q20.48 8.192 38.912 18.432t32.768 27.648q10.24 12.288 17.92 30.72t10.752 39.424 1.536 42.496-9.728 38.912q-8.192 18.432-19.968 37.376t-28.672 35.328-40.448 29.184-57.344 18.944q-61.44 11.264-117.76-11.264t-88.064-74.752q-12.288-39.936-13.312-70.656t16.384-66.56q13.312-27.648 40.448-51.712t62.464-38.912 75.264-17.408 78.848 12.8zM361.472 764.928q37.888 3.072 57.856-18.432t21.504-48.128-15.36-47.616-52.736-16.896q-27.648 3.072-43.008 23.552t-17.408 43.52 9.728 42.496 39.424 21.504zM780.288 6.144q74.752 0 139.776 19.968t113.664 57.856 76.288 92.16 27.648 122.88q0 33.792-16.384 50.688t-35.328 17.408-35.328-14.336-16.384-45.568q0-40.96-22.528-77.824t-59.392-64.512-84.48-43.52-96.768-15.872q-31.744 0-47.104-15.36t-14.336-34.304 18.944-34.304 51.712-15.36zM780.288 169.984q95.232 0 144.384 48.64t49.152 146.944q0 30.72-10.24 43.52t-22.528 11.264-22.528-14.848-10.24-35.84q0-60.416-34.816-96.256t-93.184-35.84q-19.456 0-28.672-10.752t-9.216-23.04 9.728-23.04 28.16-10.752z"/></svg>
+    </a>
+    
+    
+    <a class="social-link" title="github" href="https://github.com/zeyiY" target="_blank" rel="noopener">
+        <svg viewbox="0 0 1049 1024" xmlns="http://www.w3.org/2000/svg"><path d="M524.979332 0C234.676191 0 0 234.676191 0 524.979332c0 232.068678 150.366597 428.501342 358.967656 498.035028 26.075132 5.215026 35.636014-11.299224 35.636014-25.205961 0-12.168395-0.869171-53.888607-0.869171-97.347161-146.020741 31.290159-176.441729-62.580318-176.441729-62.580318-23.467619-60.841976-58.234462-76.487055-58.234463-76.487055-47.804409-32.15933 3.476684-32.15933 3.476685-32.15933 53.019436 3.476684 80.83291 53.888607 80.83291 53.888607 46.935238 79.963739 122.553122 57.365291 152.97411 43.458554 4.345855-33.897672 18.252593-57.365291 33.028501-70.402857-116.468925-12.168395-239.022047-57.365291-239.022047-259.012982 0-57.365291 20.860106-104.300529 53.888607-140.805715-5.215026-13.037566-23.467619-66.926173 5.215027-139.067372 0 0 44.327725-13.906737 144.282399 53.888607 41.720212-11.299224 86.917108-17.383422 131.244833-17.383422s89.524621 6.084198 131.244833 17.383422C756.178839 203.386032 800.506564 217.29277 800.506564 217.29277c28.682646 72.1412 10.430053 126.029806 5.215026 139.067372 33.897672 36.505185 53.888607 83.440424 53.888607 140.805715 0 201.64769-122.553122 245.975415-239.891218 259.012982 19.121764 16.514251 35.636014 47.804409 35.636015 97.347161 0 70.402857-0.869171 126.898978-0.869172 144.282399 0 13.906737 9.560882 30.420988 35.636015 25.205961 208.601059-69.533686 358.967656-265.96635 358.967655-498.035028C1049.958663 234.676191 814.413301 0 524.979332 0z"/></svg>
+    </a>
+    
+    
+    
+    
+    
+    
+</div>
+    </div>
+</nav>
+    </div>
+</header>
+
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+        <header class="post-full-header">
+            <section class="post-full-meta">
+                <time class="post-full-meta-date" datetime="2019-04-13T11:02:54.000Z" itemprop="datePublished">
+                    2019-04-13
+                </time>
+                
+                <span class="date-divider">/</span>
+                
+                
+            </section>
+            <h1 class="post-full-title">这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖</h1>
+        </header>
+        <article class="post-full no-image">
+            
+            <section class="post-full-content">
+                <div id="lightgallery" class="markdown-body">
+                    <h2 id="这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖"><a href="#这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖" class="headerlink" title="这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖"></a>这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖</h2><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>日常业务开发中，列表分页查询的需求非常常见，在Mybatis 架构中，我们又非常喜欢使用<a href="https://github.com/pagehelper/Mybatis-PageHelper" target="_blank" rel="noopener">PageHelper</a> 这个插件，非常感谢开源这个插件的大佬～</p>
+<p>虽然大佬把文档写的非常全，然而依然掉下水井🤦‍♂️，以下记录一下掉的下水井，以及如何填井盖的过程。</p>
+<p><a href="https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md" target="_blank" rel="noopener">使用文档</a>一定要仔细看，填盖过程中引用了文档的相关内容。</p>
+<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>在单元测试测试和测试环境中分别出现了两个问题，让我怀疑了人生。</p>
+<p>单元测试问题：</p>
+<p>查询报错，无缘无故的加了一个order by 排序，查看sql 和 方法并没有order by的逻辑，并且没有其他的逻辑(也没有PageHelper 配置)，真的活见鬼了，最见鬼的是非必现。</p>
+<p>测试环境问题：</p>
+<p>程序执行一段时间后，一个分页接口直接报错了，报错的内容见下图，同样是非现，代码也没有特殊的逻辑，一个查询，使用PageHelper.startPage(pageNum, pageSize)进行分页。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">报错信息：</span><br><span class="line">09:41:22.528 [http-nio-8080-exec-1] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.type.TypeException: Could not set parameters for mapping: ParameterMapping&#123;property=&apos;Second_PageHelper&apos;, mode=IN, javaType=class java.lang.Integer, jdbcType=null, numericScale=null, resultMapId=&apos;null&apos;, jdbcTypeName=&apos;null&apos;, expression=&apos;null&apos;&#125;. Cause: org.apache.ibatis.type.TypeException: Error setting non null for parameter #1 with JdbcType null . Try setting a different JdbcType for this parameter or a different configuration property. Cause: java.sql.SQLException: Type not supported] with root cause</span><br><span class="line">java.sql.SQLException: Type not supported</span><br><span class="line">at com.informix.util.IfxErrMsg.buildException(IfxErrMsg.java:480)</span><br><span class="line">at com.informix.util.IfxErrMsg.getSQLException(IfxErrMsg.java:449)</span><br><span class="line">at com.informix.util.IfxErrMsg.getSQLException(IfxErrMsg.java:400)</span><br><span class="line">at com.informix.jdbc.IfxValue.getIfxTypeName(IfxValue.java:207)</span><br><span class="line">at com.informix.jdbc.IfxValue.makeInstance(IfxValue.java:342)</span><br><span class="line">at com.informix.jdbc.IfxValue.makeInstance(IfxValue.java:334)</span><br><span class="line">at com.informix.jdbc.IfxPreparedStatement.setInt(IfxPreparedStatement.java:989)</span><br><span class="line">at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">at org.apache.tomcat.jdbc.pool.StatementFacade$StatementProxy.invoke(StatementFacade.java:114)</span><br><span class="line">at com.sun.proxy.$Proxy133.setInt(Unknown Source)</span><br><span class="line">at org.apache.ibatis.type.IntegerTypeHandler.setNonNullParameter(IntegerTypeHandler.java:31)</span><br><span class="line">at org.apache.ibatis.type.IntegerTypeHandler.setNonNullParameter(IntegerTypeHandler.java:26)</span><br><span class="line">at org.apache.ibatis.type.BaseTypeHandler.setParameter(BaseTypeHandler.java:53)</span><br><span class="line">at org.apache.ibatis.scripting.defaults.DefaultParameterHandler.setParameters(DefaultParameterHandler.java:87)</span><br><span class="line">at org.apache.ibatis.executor.statement.PreparedStatementHandler.parameterize(PreparedStatementHandler.java:93)</span><br><span class="line">at org.apache.ibatis.executor.statement.RoutingStatementHandler.parameterize(RoutingStatementHandler.java:64)</span><br><span class="line">at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86)</span><br><span class="line">at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62)</span><br><span class="line">at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:326)</span><br><span class="line">at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)</span><br><span class="line">at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)</span><br><span class="line">at com.github.pagehelper.PageInterceptor.intercept(PageInterceptor.java:136)</span><br><span class="line">at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)</span><br><span class="line">at com.sun.proxy.$Proxy131.query(Unknown Source)</span><br><span class="line">at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)</span><br><span class="line">at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)</span><br><span class="line">at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)</span><br><span class="line">at com.sun.proxy.$Proxy81.selectList(Unknown Source)</span><br><span class="line">at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:230)</span><br><span class="line">at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:139)</span><br><span class="line">at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:76)</span><br><span class="line">at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59)</span><br><span class="line">at com.sun.proxy.$Proxy87.selectByExample(Unknown Source)</span><br><span class="line">at com.ccb.hebei.zcyd.dao.service.impl.ContractRecordStateServiceImpl.search(ContractRecordStateServiceImpl.java:50)</span><br><span class="line">at com.ccb.hebei.zcyd.web.api.RecordStateApi.search(RecordStateApi.java:42)</span><br><span class="line">at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">at java.lang.reflect.Method.invoke(Method.java:498)</span><br><span class="line">at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)</span><br><span class="line">at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:133)</span><br><span class="line">at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:97)</span><br><span class="line">at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:827)</span><br><span class="line">at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:738)</span><br><span class="line">at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)</span><br><span class="line">at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:967)</span><br><span class="line">at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:901)</span><br><span class="line">at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:970)</span><br><span class="line">at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:872)</span><br><span class="line">at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)</span><br><span class="line">at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:846)</span><br><span class="line">at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)</span><br><span class="line">at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)</span><br><span class="line">at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)</span><br><span class="line">at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)</span><br><span class="line">at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:109)</span><br><span class="line">at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)</span><br><span class="line">at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:81)</span><br><span class="line">at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)</span><br><span class="line">at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:197)</span><br><span class="line">at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)</span><br><span class="line">at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)</span><br><span class="line">at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)</span><br><span class="line">at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)</span><br><span class="line">at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:496)</span><br><span class="line">at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)</span><br><span class="line">at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)</span><br><span class="line">at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)</span><br><span class="line">at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)</span><br><span class="line">at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:803)</span><br><span class="line">at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)</span><br><span class="line">at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:790)</span><br><span class="line">at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1459)</span><br><span class="line">at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)</span><br><span class="line">at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)</span><br><span class="line">at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)</span><br><span class="line">at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)</span><br><span class="line">at java.lang.Thread.run(Thread.java:745)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">代码模块：</span><br><span class="line"> PageHelper.startPage(pageNum, pageSize);</span><br><span class="line"> list = countryMapper.selectIf(param1);</span><br></pre></td></tr></table></figure>
+<h4 id="问题解析"><a href="#问题解析" class="headerlink" title="问题解析"></a>问题解析</h4><p>欲解决问题，就要了解PageHelper是怎么实现的，并且PageHelper.startPage(pageNum, pageSize) 干了啥事。</p>
+<p>这次现看PageHelper.startPage(pageNum, pageSize)的源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">package com.github.pagehelper.page;</span><br><span class="line"></span><br><span class="line">import com.github.pagehelper.ISelect;</span><br><span class="line">import com.github.pagehelper.Page;</span><br><span class="line">import com.github.pagehelper.util.PageObjectUtil;</span><br><span class="line"></span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 基础分页方法</span><br><span class="line"> *</span><br><span class="line"> * @author liuzh</span><br><span class="line"> */</span><br><span class="line">public abstract class PageMethod &#123;</span><br><span class="line">    protected static final ThreadLocal&lt;Page&gt; LOCAL_PAGE = new ThreadLocal&lt;Page&gt;();</span><br><span class="line">    protected static boolean DEFAULT_COUNT = true;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 设置 Page 参数</span><br><span class="line">     *</span><br><span class="line">     * @param page</span><br><span class="line">     */</span><br><span class="line">    protected static void setLocalPage(Page page) &#123;</span><br><span class="line">        LOCAL_PAGE.set(page);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取 Page 参数</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static &lt;T&gt; Page&lt;T&gt; getLocalPage() &#123;</span><br><span class="line">        return LOCAL_PAGE.get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 移除本地变量</span><br><span class="line">     */</span><br><span class="line">    public static void clearPage() &#123;</span><br><span class="line">        LOCAL_PAGE.remove();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 开始分页</span><br><span class="line">     *</span><br><span class="line">     * @param params</span><br><span class="line">     */</span><br><span class="line">    public static &lt;E&gt; Page&lt;E&gt; startPage(Object params) &#123;</span><br><span class="line">        Page&lt;E&gt; page = PageObjectUtil.getPageFromObject(params, true);</span><br><span class="line">        //当已经执行过orderBy的时候</span><br><span class="line">        Page&lt;E&gt; oldPage = getLocalPage();</span><br><span class="line">        if (oldPage != null &amp;&amp; oldPage.isOrderByOnly()) &#123;</span><br><span class="line">            page.setOrderBy(oldPage.getOrderBy());</span><br><span class="line">        &#125;</span><br><span class="line">        setLocalPage(page);</span><br><span class="line">        return page;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 开始分页</span><br><span class="line">     *</span><br><span class="line">     * @param pageNum  页码</span><br><span class="line">     * @param pageSize 每页显示数量</span><br><span class="line">     */</span><br><span class="line">    public static &lt;E&gt; Page&lt;E&gt; startPage(int pageNum, int pageSize) &#123;</span><br><span class="line">        return startPage(pageNum, pageSize, DEFAULT_COUNT);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 开始分页</span><br><span class="line">     *</span><br><span class="line">     * @param pageNum  页码</span><br><span class="line">     * @param pageSize 每页显示数量</span><br><span class="line">     * @param count    是否进行count查询</span><br><span class="line">     */</span><br><span class="line">    public static &lt;E&gt; Page&lt;E&gt; startPage(int pageNum, int pageSize, boolean count) &#123;</span><br><span class="line">        return startPage(pageNum, pageSize, count, null, null);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 开始分页</span><br><span class="line">     *</span><br><span class="line">     * @param pageNum  页码</span><br><span class="line">     * @param pageSize 每页显示数量</span><br><span class="line">     * @param orderBy  排序</span><br><span class="line">     */</span><br><span class="line">    public static &lt;E&gt; Page&lt;E&gt; startPage(int pageNum, int pageSize, String orderBy) &#123;</span><br><span class="line">        Page&lt;E&gt; page = startPage(pageNum, pageSize);</span><br><span class="line">        page.setOrderBy(orderBy);</span><br><span class="line">        return page;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 开始分页</span><br><span class="line">     *</span><br><span class="line">     * @param pageNum      页码</span><br><span class="line">     * @param pageSize     每页显示数量</span><br><span class="line">     * @param count        是否进行count查询</span><br><span class="line">     * @param reasonable   分页合理化,null时用默认配置</span><br><span class="line">     * @param pageSizeZero true且pageSize=0时返回全部结果，false时分页,null时用默认配置</span><br><span class="line">     */</span><br><span class="line">    public static &lt;E&gt; Page&lt;E&gt; startPage(int pageNum, int pageSize, boolean count, Boolean reasonable, Boolean pageSizeZero) &#123;</span><br><span class="line">        Page&lt;E&gt; page = new Page&lt;E&gt;(pageNum, pageSize, count);</span><br><span class="line">        page.setReasonable(reasonable);</span><br><span class="line">        page.setPageSizeZero(pageSizeZero);</span><br><span class="line">        //当已经执行过orderBy的时候</span><br><span class="line">        Page&lt;E&gt; oldPage = getLocalPage();</span><br><span class="line">        if (oldPage != null &amp;&amp; oldPage.isOrderByOnly()) &#123;</span><br><span class="line">            page.setOrderBy(oldPage.getOrderBy());</span><br><span class="line">        &#125;</span><br><span class="line">        setLocalPage(page);</span><br><span class="line">        return page;</span><br><span class="line">    &#125;</span><br><span class="line">.....忽略了一些代码........</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发现PageHelper中使用ThreadLocal，ThreadLocal有什么特性呢？详情请看下篇<a href="https://zeyiy.github.io/2019/04/13/ThreadLocal%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank" rel="noopener">文章</a>讲解。先说结论，</p>
+<p>结论是：分页参数和线程是绑定的。</p>
+<p>只要你可以保证在 <code>PageHelper</code> 方法调用后紧跟 MyBatis 查询方法，这就是安全的。因为 <code>PageHelper</code> 在 <code>finally</code> 代码段中自动清除了 <code>ThreadLocal</code> 存储的对象。</p>
+<p>如果代码在进入 <code>Executor</code> 前发生异常，就会导致线程不可用，这属于人为的 Bug（例如接口方法和 XML 中的不匹配，导致找不到 <code>MappedStatement</code> 时）， 这种情况由于线程不可用，也不会导致 <code>ThreadLocal</code> 参数被错误的使用。</p>
+<p>不安全的代码示范：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PageHelper.startPage(1, 10);</span><br><span class="line">List&lt;Country&gt; list;</span><br><span class="line">if(param1 != null)&#123;</span><br><span class="line">    list = countryMapper.selectIf(param1);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    list = new ArrayList&lt;Country&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种情况下由于 param1 存在 null 的情况，就会导致 PageHelper 生产了一个分页参数，但是没有被消费，这个参数就会一直保留在这个线程上。当这个线程再次被使用时，就可能导致不该分页的方法去消费这个分页参数，这就产生了莫名其妙的分页。</p>
+<p>同样orderBy同理。</p>
+<p>查看全局代码发现，确实有这样的代码逻辑🤦‍♂️。这同时解释了为啥不是必现的原因了，因为触发未消费的分页参数的逻辑不是每次都执行。</p>
+<h4 id="怎么填井盖呢？"><a href="#怎么填井盖呢？" class="headerlink" title="怎么填井盖呢？"></a>怎么填井盖呢？</h4><ol>
+<li>PageHelper 紧跟查询语句</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Country&gt; list;</span><br><span class="line">if(param1 != null)&#123;</span><br><span class="line">    PageHelper.startPage(1, 10);</span><br><span class="line">    list = countryMapper.selectIf(param1);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    list = new ArrayList&lt;Country&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在使用完之后手动清空ThreadLocal 存储的信息</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PageHelper.clearPage();</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Java8 lambda用法</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Page&lt;Country&gt; page = PageHelper.startPage(1, 10).doSelectPage(()-&gt; countryMapper.selectGroupBy());</span><br><span class="line"></span><br><span class="line">PageInfo&lt;Country&gt; pageInfo = PageHelper.startPage(1, 10).doSelectPageInfo(() -&gt; countryMapper.selectGroupBy());</span><br></pre></td></tr></table></figure>
+
+                </div>
+            </section>
+        </article>
+    </div>
+
+    
+    <div style="height: 4vw;width: 100%"></div>
+    <nav id="gobottom" class="pagination">
+        
+        <span class="prev-next-post">•</span>
+        
+        <a class="next-post" title="ThreadLocal的理解" href="/2019/04/13/ThreadLocal的理解/">
+            ThreadLocal的理解 →
+        </a>
+        
+    </nav>
+
+    
+</main>
+
+<div class="toc-bar">
+    <div class="toc-btn-bar">
+        <a href="#site-main" class="toc-btn">
+            <svg viewbox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M793.024 710.272a32 32 0 1 0 45.952-44.544l-310.304-320a32 32 0 0 0-46.4 0.48l-297.696 320a32 32 0 0 0 46.848 43.584l274.752-295.328 286.848 295.808z"/></svg>
+        </a>
+        <div class="toc-btn toc-switch">
+            <svg class="toc-open" viewbox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M779.776 480h-387.2a32 32 0 0 0 0 64h387.2a32 32 0 0 0 0-64M779.776 672h-387.2a32 32 0 0 0 0 64h387.2a32 32 0 0 0 0-64M256 288a32 32 0 1 0 0 64 32 32 0 0 0 0-64M392.576 352h387.2a32 32 0 0 0 0-64h-387.2a32 32 0 0 0 0 64M256 480a32 32 0 1 0 0 64 32 32 0 0 0 0-64M256 672a32 32 0 1 0 0 64 32 32 0 0 0 0-64"/></svg>
+            <svg class="toc-close hide" viewbox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M512 960c-247.039484 0-448-200.960516-448-448S264.960516 64 512 64 960 264.960516 960 512 759.039484 960 512 960zM512 128.287273c-211.584464 0-383.712727 172.128262-383.712727 383.712727 0 211.551781 172.128262 383.712727 383.712727 383.712727 211.551781 0 383.712727-172.159226 383.712727-383.712727C895.712727 300.415536 723.551781 128.287273 512 128.287273z"/><path d="M557.05545 513.376159l138.367639-136.864185c12.576374-12.416396 12.672705-32.671738 0.25631-45.248112s-32.704421-12.672705-45.248112-0.25631l-138.560301 137.024163-136.447897-136.864185c-12.512727-12.512727-32.735385-12.576374-45.248112-0.063647-12.512727 12.480043-12.54369 32.735385-0.063647 45.248112l136.255235 136.671523-137.376804 135.904314c-12.576374 12.447359-12.672705 32.671738-0.25631 45.248112 6.271845 6.335493 14.496116 9.504099 22.751351 9.504099 8.12794 0 16.25588-3.103239 22.496761-9.247789l137.567746-136.064292 138.687596 139.136568c6.240882 6.271845 14.432469 9.407768 22.65674 9.407768 8.191587 0 16.352211-3.135923 22.591372-9.34412 12.512727-12.480043 12.54369-32.704421 0.063647-45.248112L557.05545 513.376159z"/></svg>
+        </div>
+        <a href="#gobottom" class="toc-btn">
+            <svg viewbox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M231.424 346.208a32 32 0 0 0-46.848 43.584l297.696 320a32 32 0 0 0 46.4 0.48l310.304-320a32 32 0 1 0-45.952-44.544l-286.848 295.808-274.752-295.36z"/></svg>
+        </a>
+    </div>
+    <div class="toc-main">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖"><span class="toc-text">这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题解析"><span class="toc-text">问题解析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#怎么填井盖呢？"><span class="toc-text">怎么填井盖呢？</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+
+
+	</div>
+	
+
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+
+<article class="read-next-card" style="background-image: url(https://i.loli.net/2019/03/14/5c8a6f200d7af.jpg)">
+  <header class="read-next-card-header">
+    <small class="read-next-card-header-sitetitle">&mdash; 粽子的世界 &mdash;</small>
+    <h3 class="read-next-card-header-title">Recent Posts</h3>
+  </header>
+  <div class="read-next-divider">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24">
+      <path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/>
+    </svg>
+  </div>
+  <div class="read-next-card-content">
+    <ul>
+      
+      
+      
+      <li>
+        <a href="/2019/04/13/这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖/">这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖</a>
+      </li>
+      
+      
+      
+      <li>
+        <a href="/2019/04/13/ThreadLocal的理解/">ThreadLocal的理解</a>
+      </li>
+      
+      
+      
+      <li>
+        <a href="/2019/04/10/Mybatis的if-else/">Mybatis的if-else</a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+  <footer class="read-next-card-footer">
+    <a href="/archives">  MORE  → </a>
+  </footer>
+</article>
+
+            
+            
+            
+
+
+            
+            
+            
+
+            
+        </div>
+    </div>
+</aside>
+
+	
+
+
+
+
+<div id="search" class="search-overlay subscribe-overlay">
+    <div class="search-form">
+        
+        <img class="search-overlay-logo" src="https://i.loli.net/2019/03/14/5c8a5bd9d19b4.jpg" alt="粽子的世界">
+        
+        <input id="local-search-input" class="search-input" type="text" name="search" placeholder="Search ...">
+        <a class="search-overlay-close" href="#"></a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+
+<footer class="site-footer outer">
+	<div class="site-footer-content inner">
+		<section class="copyright">
+			<a href="/" title="粽子的世界">粽子的世界</a>
+			&copy; 2019
+		</section>
+		<nav class="site-footer-nav">
+			
+            <a href="https://hexo.io" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+            <a href="https://github.com/xzhih/hexo-theme-casper" title="Casper" target="_blank" rel="noopener">Casper</a>
+        </nav>
+    </div>
+</footer>
+	
+
+
+<script>
+    if(window.navigator && navigator.serviceWorker) {
+        navigator.serviceWorker.getRegistrations()
+        .then(function(registrations) {
+            for(let registration of registrations) {
+                registration.unregister();
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+
+<div class="floating-header">
+	<div class="floating-header-logo">
+        <a href="/" title="粽子的世界">
+			
+                <img src="https://i.loli.net/2019/03/14/5c8a5bd9d19b4.jpg" alt="粽子的世界 icon">
+			
+            <span>粽子的世界</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">这些年Mybatis使用PageHelper进行分页掉的下水井以及填井盖</div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+
+
+
+<script src="/js/mix/post-lazy-local.min.js"></script>
+
+<script>;(function() {var bLazy = new Blazy()})();</script>
+
+
+
+
+<script src="/js/lightgallery.min.js"></script>
+<link rel="stylesheet" href="/css/lightgallery.min.css">
+<script>
+    lightGallery(document.getElementById('lightgallery'), {
+        selector: '.post-img'
+    });
+</script>
+
+
+
+
+
+
+
+
+
+<script>searchFunc("/")</script>
+
+
+
+
+
+</body>
+</html>
